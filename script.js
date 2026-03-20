@@ -22,17 +22,12 @@ document.getElementById("rightMenu").style.transform="translateX(100%)";
 document.getElementById("overlay").classList.remove("show");
 }
 
-window.onpopstate=function(){
-closeLeft();
-closeRight();
-};
-
 // ================= BACK BUTTON =================
+
 window.onpopstate=function(){
 closeLeft();
 closeRight();
 };
-
 
 // ================= SEARCH =================
 
@@ -42,16 +37,18 @@ if(searchInput){
 const tools=document.querySelectorAll(".tool");
 
 searchInput.addEventListener("keyup",function(){
+
 let value=this.value.toLowerCase();
 
 tools.forEach(tool=>{
 let name=tool.getAttribute("data-name") || "";
 tool.style.display=name.includes(value)?"block":"none";
 });
+
 });
 }
 
-// ================= JPG TO PDF FIX =================
+// ================= JPG TO PDF =================
 
 const imageInput = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
@@ -61,28 +58,35 @@ let images = [];
 
 if(imageInput){
 
+// force multiple
 imageInput.setAttribute("multiple", "multiple");
-imageInput.addEventListener("change", function(){
 
-preview.innerHTML="";
-images=[];
+imageInput.addEventListener("change", function(){
 
 const files = imageInput.files;
 
 for(let i=0;i<files.length;i++){
 
 const file = files[i];
+
+// duplicate prevent
+if(!images.includes(file)){
+
 images.push(file);
 
 const reader = new FileReader();
 
 reader.onload=function(e){
+
 const img=document.createElement("img");
 img.src=e.target.result;
 preview.appendChild(img);
+
 }
 
 reader.readAsDataURL(file);
+
+}
 
 }
 
@@ -90,7 +94,8 @@ reader.readAsDataURL(file);
 
 }
 
-// convert button
+// ================= CONVERT =================
+
 if(convertBtn){
 
 convertBtn.addEventListener("click", async function(){
@@ -110,12 +115,14 @@ const imgData = await toBase64(images[i]);
 const img = new Image();
 img.src = imgData;
 
-await new Promise(resolve=> img.onload = resolve);
+await new Promise(resolve => img.onload = resolve);
 
 const width = pdf.internal.pageSize.getWidth();
 const height = (img.height * width) / img.width;
 
-if(i>0) pdf.addPage();
+if(i>0){
+pdf.addPage();
+}
 
 pdf.addImage(imgData,"JPEG",0,0,width,height);
 
@@ -127,12 +134,18 @@ pdf.save("Hridoy-PDF.pdf");
 
 }
 
-// helper
+// ================= HELPER =================
+
 function toBase64(file){
 return new Promise((resolve,reject)=>{
+
 const reader=new FileReader();
+
 reader.readAsDataURL(file);
+
 reader.onload=()=>resolve(reader.result);
+
 reader.onerror=error=>reject(error);
+
 });
 }
