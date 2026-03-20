@@ -3,6 +3,7 @@
 function openLeft(){
 document.getElementById("leftMenu").style.transform="translateX(0)";
 document.getElementById("overlay").classList.add("show");
+history.pushState({menu:"left"},"");
 }
 
 function closeLeft(){
@@ -13,12 +14,18 @@ document.getElementById("overlay").classList.remove("show");
 function openRight(){
 document.getElementById("rightMenu").style.transform="translateX(0)";
 document.getElementById("overlay").classList.add("show");
+history.pushState({menu:"right"},"");
 }
 
 function closeRight(){
 document.getElementById("rightMenu").style.transform="translateX(100%)";
 document.getElementById("overlay").classList.remove("show");
 }
+
+window.onpopstate=function(){
+closeLeft();
+closeRight();
+};
 
 // ================= BACK BUTTON =================
 window.onpopstate=function(){
@@ -44,73 +51,47 @@ tool.style.display=name.includes(value)?"block":"none";
 });
 }
 
-// append
-box.appendChild(img);
-box.appendChild(del);
-preview.appendChild(box);
+// ================= IMAGE SYSTEM =================
 
-// drag reorder
-box.draggable = true;
-
-box.addEventListener("dragstart", () => {
-box.classList.add("dragging");
-});
-
-box.addEventListener("dragend", () => {
-box.classList.remove("dragging");
-});
-
-preview.addEventListener("dragover", (e) => {
-e.preventDefault();
-const dragging = document.querySelector(".dragging");
-const after = getDragAfterElement(preview, e.clientY);
-if(after == null){
-preview.appendChild(dragging);
-}else{
-preview.insertBefore(dragging, after);
-}
-});
-
-};
-
-
-const dropArea = document.getElementById("dropArea");
-const imageInput = document.getElementById("imageInput");
+const input = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
+const dropArea = document.getElementById("dropArea");
 const convertBtn = document.getElementById("convertBtn");
-
-const qualitySelect = document.getElementById("quality");
-const pageNumberSelect = document.getElementById("pageNumber");
-const watermarkInput = document.getElementById("watermark");
 
 let images = [];
 
-// click upload
-dropArea.onclick = () => imageInput.click();
+// CLICK upload
+if(dropArea){
+dropArea.addEventListener("click", ()=> input.click());
+}
 
-// drag drop
-dropArea.ondragover = e => {
+// FILE SELECT (FIXED)
+if(input){
+input.addEventListener("change", (e)=>{
+addImages(e.target.files);
+input.value = ""; // IMPORTANT FIX
+});
+}
+
+// DRAG DROP
+if(dropArea){
+dropArea.addEventListener("dragover",(e)=>{
 e.preventDefault();
-dropArea.style.background="#222";
-};
+dropArea.style.borderColor="#ff5252";
+});
 
-dropArea.ondragleave = () => {
-dropArea.style.background="#111";
-};
+dropArea.addEventListener("dragleave",()=>{
+dropArea.style.borderColor="#444";
+});
 
-dropArea.ondrop = e => {
+dropArea.addEventListener("drop",(e)=>{
 e.preventDefault();
-handleFiles(e.dataTransfer.files);
-};
+addImages(e.dataTransfer.files);
+});
+}
 
-// select
-imageInput.onchange = e => {
-handleFiles(e.target.files);
-imageInput.value="";
-};
-
-// handle
-function handleFiles(files){
+// ADD IMAGES (MAIN FIX)
+function addImages(files){
 
 for(let file of files){
 
@@ -120,26 +101,33 @@ images.push(file);
 
 const reader = new FileReader();
 
-reader.onload = e => {
+reader.onload = function(e){
 
-const box = document.createElement("div");
-box.className="imgBox";
+const div = document.createElement("div");
+div.style.position="relative";
 
 const img = document.createElement("img");
 img.src = e.target.result;
 
 const del = document.createElement("button");
-del.innerText="❌";
-del.className="deleteBtn";
+del.innerHTML="✖";
+del.style.position="absolute";
+del.style.top="2px";
+del.style.right="2px";
+del.style.background="red";
+del.style.color="white";
+del.style.border="none";
+del.style.cursor="pointer";
 
-del.onclick = () => {
-box.remove();
+del.onclick = ()=>{
+div.remove();
 images = images.filter(f => f !== file);
 };
 
-box.appendChild(img);
-box.appendChild(del);
-preview.appendChild(box);
+div.appendChild(img);
+div.appendChild(del);
+
+preview.appendChild(div);
 
 };
 
@@ -149,24 +137,22 @@ reader.readAsDataURL(file);
 
 }
 
-// convert
-convertBtn.onclick = async () => {
+// ================= CONVERT =================
 
-if(images.length===0){
-alert("Select images first!");
+if(convertBtn){
+convertBtn.addEventListener("click", async ()=>{
+
+if(images.length === 0){
+alert("Select images first");
 return;
 }
-
-const quality = parseFloat(qualitySelect.value);
-const addPageNumber = pageNumberSelect.value === "yes";
-const watermark = watermarkInput.value;
 
 const { jsPDF } = window.jspdf;
 const pdf = new jsPDF();
 
 for(let i=0;i<images.length;i++){
 
-let imgData = await compressImage(images[i], quality);
+const imgData = await toBase64(images[i]);
 
 const img = new Image();
 img.src = imgData;
@@ -176,59 +162,23 @@ await new Promise(res => img.onload = res);
 const width = pdf.internal.pageSize.getWidth();
 const height = (img.height * width) / img.width;
 
-if(i>0) pdf.addPage();
+if(i > 0) pdf.addPage();
 
 pdf.addImage(imgData,"JPEG",0,0,width,height);
 
-// page number
-if(addPageNumber){
-pdf.setFontSize(10);
-pdf.text(`Page ${i+1}`, width-30, height-10);
 }
 
-// watermark
-if(watermark){
-pdf.setTextColor(150);
-pdf.setFontSize(20);
-pdf.text(watermark, width/2-20, height/2, {angle:45});
-}
-
-}
-
-pdf.save("Hridoy-Pro-PDF.pdf");
-
-};
-
-
-// compress
-function compressImage(file, quality){
-return new Promise(resolve => {
-
-const reader = new FileReader();
-reader.readAsDataURL(file);
-
-reader.onload = e => {
-
-const img = new Image();
-img.src = e.target.result;
-
-img.onload = () => {
-
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = img.width;
-canvas.height = img.height;
-
-ctx.drawImage(img,0,0);
-
-resolve(canvas.toDataURL("image/jpeg", quality));
-
-};
-
-};
+pdf.save("Hridoy-PDF.pdf");
 
 });
 }
 
-
+// BASE64
+function toBase64(file){
+return new Promise((resolve,reject)=>{
+const reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload = ()=> resolve(reader.result);
+reader.onerror = err => reject(err);
+});
+}
