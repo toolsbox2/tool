@@ -44,52 +44,138 @@ tool.style.display=name.includes(value)?"block":"none";
 });
 }
 
+// ================= ELEMENTS =================
 
-// ================= JPG TO PDF FINAL =================
-
+const dropArea = document.getElementById("dropArea");
 const imageInput = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 const convertBtn = document.getElementById("convertBtn");
 
 let images = [];
 
-if(imageInput){
 
-imageInput.addEventListener("change", function(e){
+// ================= CLICK UPLOAD =================
 
-const files = e.target.files;
+dropArea.addEventListener("click", () => {
+imageInput.click();
+});
 
-// 🔥 fix: same file select problem
+
+// ================= DRAG & DROP =================
+
+dropArea.addEventListener("dragover", (e) => {
+e.preventDefault();
+dropArea.style.background = "#222";
+});
+
+dropArea.addEventListener("dragleave", () => {
+dropArea.style.background = "#111";
+});
+
+dropArea.addEventListener("drop", (e) => {
+e.preventDefault();
+handleFiles(e.dataTransfer.files);
+});
+
+
+// ================= INPUT SELECT =================
+
+imageInput.addEventListener("change", (e) => {
+handleFiles(e.target.files);
+
+// reset input (same file fix)
 imageInput.value = "";
+});
 
-for(let i=0;i<files.length;i++){
 
-const file = files[i];
+// ================= HANDLE FILES =================
+
+function handleFiles(files){
+
+for(let file of files){
+
+if(!file.type.startsWith("image/")) continue;
+
 images.push(file);
 
-// preview
 const reader = new FileReader();
 
 reader.onload = function(e){
+
+const box = document.createElement("div");
+box.className = "imgBox";
+
+// image
 const img = document.createElement("img");
 img.src = e.target.result;
-preview.appendChild(img);
+
+// delete button
+const del = document.createElement("button");
+del.innerText = "❌";
+del.className = "deleteBtn";
+
+del.onclick = () => {
+box.remove();
+images = images.filter(f => f !== file);
+};
+
+// append
+box.appendChild(img);
+box.appendChild(del);
+preview.appendChild(box);
+
+// drag reorder
+box.draggable = true;
+
+box.addEventListener("dragstart", () => {
+box.classList.add("dragging");
+});
+
+box.addEventListener("dragend", () => {
+box.classList.remove("dragging");
+});
+
+preview.addEventListener("dragover", (e) => {
+e.preventDefault();
+const dragging = document.querySelector(".dragging");
+const after = getDragAfterElement(preview, e.clientY);
+if(after == null){
+preview.appendChild(dragging);
+}else{
+preview.insertBefore(dragging, after);
 }
+});
+
+};
 
 reader.readAsDataURL(file);
 
 }
 
-});
+}
 
+
+// ================= DRAG HELPER =================
+
+function getDragAfterElement(container, y){
+const elements = [...container.querySelectorAll(".imgBox:not(.dragging)")];
+
+return elements.reduce((closest, child) => {
+const box = child.getBoundingClientRect();
+const offset = y - box.top - box.height / 2;
+
+if(offset < 0 && offset > closest.offset){
+return { offset: offset, element: child };
+}else{
+return closest;
+}
+}, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 
 // ================= CONVERT =================
 
-if(convertBtn){
-
-convertBtn.addEventListener("click", async function(){
+convertBtn.addEventListener("click", async () => {
 
 if(images.length === 0){
 alert("Select images first!");
@@ -106,14 +192,13 @@ const imgData = await toBase64(images[i]);
 const img = new Image();
 img.src = imgData;
 
-await new Promise(resolve => img.onload = resolve);
+await new Promise(res => img.onload = res);
 
+// REAL SIZE FIX
 const width = pdf.internal.pageSize.getWidth();
 const height = (img.height * width) / img.width;
 
-if(i > 0){
-pdf.addPage();
-}
+if(i > 0) pdf.addPage();
 
 pdf.addImage(imgData, "JPEG", 0, 0, width, height);
 
@@ -122,8 +207,6 @@ pdf.addImage(imgData, "JPEG", 0, 0, width, height);
 pdf.save("Hridoy-PDF.pdf");
 
 });
-
-}
 
 
 // ================= HELPER =================
