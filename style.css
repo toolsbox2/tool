@@ -399,3 +399,27 @@ transition:0.3s;
 .convert-btn:hover{
 background:#ff3030;
 }
+
+.imgBox{
+position:relative;
+display:inline-block;
+}
+
+.imgBox img{
+width:80px;
+height:80px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.deleteBtn{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:white;
+border:none;
+border-radius:50%;
+cursor:pointer;
+font-size:12px;
+}
