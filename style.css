@@ -328,3 +328,74 @@ font-size:22px;
 }
 
 }
+
+
+/* ===== TOOL PAGE DESIGN ===== */
+
+.tool-container{
+max-width:500px;
+margin:30px auto;
+padding:20px;
+background:#111;
+border-radius:15px;
+text-align:center;
+box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+/* upload box */
+.upload-box{
+display:block;
+border:2px dashed #444;
+padding:30px;
+border-radius:12px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.upload-box:hover{
+border-color:#ff5252;
+background:#1a1a1a;
+}
+
+.upload-box i{
+font-size:30px;
+margin-bottom:10px;
+}
+
+.upload-box p{
+font-size:16px;
+margin-bottom:5px;
+}
+
+.upload-box span{
+font-size:12px;
+opacity:0.7;
+}
+
+/* hide input */
+#imageInput{
+display:none;
+}
+
+/* preview */
+#preview{
+margin-top:15px;
+}
+
+/* button */
+.convert-btn{
+margin-top:15px;
+padding:12px;
+width:100%;
+background:#ff5252;
+border:none;
+border-radius:10px;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.convert-btn:hover{
+background:#ff3030;
+}
