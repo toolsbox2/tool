@@ -12,60 +12,32 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
 
 <body>
 
-<header class="header">
-
-<button class="menuBtn" onclick="openLeft()">
-<i class="fa-solid fa-bars"></i>
-</button>
-
-<h2 class="logo">💖 Hridoy PDF</h2>
-
-<button class="menuBtn" onclick="openRight()">
-<i class="fa-solid fa-gear"></i>
-</button>
-
-</header>
-
-<!-- SIDEBAR -->
-<div id="leftMenu" class="sidebar left">
-<button class="close" onclick="closeLeft()">✖</button>
-<a href="index.html">🏠 Home</a>
-</div>
-
-<div id="rightMenu" class="sidebar right">
-<button class="close" onclick="closeRight()">✖</button>
-<a href="#">About</a>
-</div>
-
-<div id="overlay" onclick="closeLeft();closeRight();"></div>
-
-<!-- HERO -->
 <section class="hero">
-<h1>JPG to PDF</h1>
-<p>Select multiple images and convert instantly</p>
+<h1>📄 JPG to PDF Tool</h1>
+<p>Upload multiple images, reorder, delete and convert easily</p>
 </section>
 
-<!-- TOOL BOX -->
 <div class="tool-container">
 
-<label for="imageInput" class="upload-box">
+<!-- DRAG AREA -->
+<div id="dropArea" class="upload-box">
 <i class="fa-solid fa-cloud-arrow-up"></i>
-<p>Click to upload images</p>
-</label>
+<p>Click or Drag Images Here</p>
+</div>
 
-<input type="file" id="imageInput" multiple accept="image/*">
+<input type="file" id="imageInput" multiple accept="image/*" hidden>
 
+<!-- PREVIEW -->
 <div id="preview"></div>
 
 <button id="convertBtn" class="convert-btn">
-Convert to PDF
+🚀 Convert to PDF
 </button>
 
 </div>
