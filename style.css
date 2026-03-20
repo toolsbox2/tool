@@ -189,7 +189,7 @@ opacity:1;
 pointer-events:auto;
 }
 
-/* ===== MENU LOGO ===== */
+/* ===== MENU ===== */
 .menuLogo{
 text-align:center;
 font-size:28px;
@@ -201,7 +201,6 @@ margin-top:5px;
 font-size:18px;
 }
 
-/* ===== MENU TEXT ===== */
 .menuText{
 font-size:14px;
 opacity:0.8;
@@ -218,19 +217,8 @@ border-top:1px solid #222;
 margin-top:auto;
 }
 
-.footer h3{
-margin-bottom:10px;
-}
-
-.footer p{
-font-size:14px;
-opacity:0.8;
-margin-bottom:15px;
-}
-
 .footerLinks{
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
 gap:15px;
 margin-bottom:15px;
@@ -240,11 +228,6 @@ margin-bottom:15px;
 color:white;
 text-decoration:none;
 font-size:14px;
-opacity:0.9;
-}
-
-.footerLinks a:hover{
-text-decoration:underline;
 }
 
 .copy{
@@ -252,7 +235,7 @@ font-size:12px;
 opacity:0.6;
 }
 
-/* ===== ADS BOX ===== */
+/* ===== ADS ===== */
 .ad-box{
 margin:20px;
 padding:25px;
@@ -260,78 +243,9 @@ text-align:center;
 border:1px dashed #444;
 border-radius:10px;
 color:#aaa;
-font-size:14px;
 }
 
-/* ===== SEO TEXT ===== */
-.seoText{
-padding:20px;
-text-align:center;
-}
-
-.seoText h2{
-margin-bottom:10px;
-}
-
-.seoText p{
-opacity:0.8;
-font-size:14px;
-}
-
-/* ===== JPG TOOL BOX ===== */
-.box{
-background:#111;
-padding:20px;
-margin:20px;
-border-radius:12px;
-text-align:center;
-}
-
-#convertBtn{
-padding:10px 20px;
-background:#ff5252;
-border:none;
-color:white;
-border-radius:8px;
-cursor:pointer;
-}
-
-#convertBtn:hover{
-background:#ff3030;
-}
-
-/* ===== IMAGE PREVIEW ===== */
-#preview{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:15px;
-justify-content:center;
-}
-
-#preview img{
-width:80px;
-height:80px;
-object-fit:cover;
-border-radius:6px;
-}
-
-/* ===== MOBILE FIX ===== */
-@media(max-width:600px){
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:22px;
-}
-
-}
-
-
-/* ===== TOOL PAGE DESIGN ===== */
-
+/* ===== TOOL PAGE ===== */
 .tool-container{
 max-width:500px;
 margin:30px auto;
@@ -339,17 +253,15 @@ padding:20px;
 background:#111;
 border-radius:15px;
 text-align:center;
-box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
-/* upload box */
+/* upload */
 .upload-box{
 display:block;
 border:2px dashed #444;
 padding:30px;
 border-radius:12px;
 cursor:pointer;
-transition:0.3s;
 }
 
 .upload-box:hover{
@@ -357,32 +269,44 @@ border-color:#ff5252;
 background:#1a1a1a;
 }
 
-.upload-box i{
-font-size:30px;
-margin-bottom:10px;
-}
-
-.upload-box p{
-font-size:16px;
-margin-bottom:5px;
-}
-
-.upload-box span{
-font-size:12px;
-opacity:0.7;
-}
-
-/* hide input */
 #imageInput{
 display:none;
 }
 
-/* preview */
+/* ===== PREVIEW (FINAL FIXED) ===== */
 #preview{
+display:grid;
+grid-template-columns:repeat(auto-fill, minmax(130px,1fr));
+gap:15px;
 margin-top:15px;
 }
 
-/* button */
+.imgBox{
+position:relative;
+width:100%;
+}
+
+.imgBox img{
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.deleteBtn{
+position:absolute;
+top:5px;
+right:5px;
+background:red;
+color:white;
+border:none;
+border-radius:50%;
+width:22px;
+height:22px;
+cursor:pointer;
+}
+
+/* ===== BUTTON ===== */
 .convert-btn{
 margin-top:15px;
 padding:12px;
@@ -393,49 +317,18 @@ border-radius:10px;
 color:white;
 font-size:16px;
 cursor:pointer;
-transition:0.3s;
 }
 
 .convert-btn:hover{
 background:#ff3030;
 }
 
-.imgBox{
-position:relative;
-display:inline-block;
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+.grid{
+grid-template-columns:1fr;
 }
-
-.imgBox img{
-width:80px;
-height:80px;
-object-fit:cover;
-border-radius:8px;
+.hero h1{
+font-size:22px;
 }
-
-.deleteBtn{
-position:absolute;
-top:-5px;
-right:-5px;
-background:red;
-color:white;
-border:none;
-border-radius:50%;
-cursor:pointer;
-font-size:12px;
-}
-
-.options{
-margin:15px 0;
-display:flex;
-flex-direction:column;
-gap:8px;
-}
-
-.options select,
-.options input{
-padding:8px;
-border-radius:8px;
-border:none;
-background:#222;
-color:white;
 }
