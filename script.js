@@ -1,28 +1,27 @@
 // ================= SIDEBAR =================
-
 function openLeft(){
-document.getElementById("leftMenu").style.transform="translateX(0)";
-document.getElementById("overlay").classList.add("show");
+leftMenu.style.transform="translateX(0)";
+overlay.classList.add("show");
 history.pushState({menu:"left"},"");
 }
 
 function closeLeft(){
-document.getElementById("leftMenu").style.transform="translateX(-100%)";
-document.getElementById("overlay").classList.remove("show");
+leftMenu.style.transform="translateX(-100%)";
+overlay.classList.remove("show");
 }
 
 function openRight(){
-document.getElementById("rightMenu").style.transform="translateX(0)";
-document.getElementById("overlay").classList.add("show");
+rightMenu.style.transform="translateX(0)";
+overlay.classList.add("show");
 history.pushState({menu:"right"},"");
 }
 
 function closeRight(){
-document.getElementById("rightMenu").style.transform="translateX(100%)";
-document.getElementById("overlay").classList.remove("show");
+rightMenu.style.transform="translateX(100%)";
+overlay.classList.remove("show");
 }
 
-window.onpopstate=function(){
+window.onpopstate=()=>{
 closeLeft();
 closeRight();
 };
@@ -51,30 +50,25 @@ tool.style.display=name.includes(value)?"block":"none";
 });
 }
 
-// ================= IMAGE SYSTEM =================
-
+// ================= ELEMENTS =================
 const input = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 const dropArea = document.getElementById("dropArea");
 const convertBtn = document.getElementById("convertBtn");
+const loading = document.getElementById("loading");
 
 let images = [];
 
-// CLICK upload
-if(dropArea){
-dropArea.addEventListener("click", ()=> input.click());
-}
+// CLICK
+dropArea.onclick = ()=> input.click();
 
-// FILE SELECT (FIXED)
-if(input){
-input.addEventListener("change", (e)=>{
+// FILE SELECT
+input.addEventListener("change",(e)=>{
 addImages(e.target.files);
-input.value = ""; // IMPORTANT FIX
+input.value="";
 });
-}
 
-// DRAG DROP
-if(dropArea){
+// DRAG
 dropArea.addEventListener("dragover",(e)=>{
 e.preventDefault();
 dropArea.style.borderColor="#ff5252";
@@ -88,9 +82,8 @@ dropArea.addEventListener("drop",(e)=>{
 e.preventDefault();
 addImages(e.dataTransfer.files);
 });
-}
 
-// ADD IMAGES (MAIN FIX)
+// ADD IMAGES
 function addImages(files){
 
 for(let file of files){
@@ -101,51 +94,51 @@ images.push(file);
 
 const reader = new FileReader();
 
-reader.onload = function(e){
+reader.onload=(e)=>{
 
-const div = document.createElement("div");
-div.style.position="relative";
+const box = document.createElement("div");
+box.style.position="relative";
 
 const img = document.createElement("img");
-img.src = e.target.result;
+img.src=e.target.result;
 
 const del = document.createElement("button");
 del.innerHTML="✖";
-del.style.position="absolute";
-del.style.top="2px";
-del.style.right="2px";
-del.style.background="red";
-del.style.color="white";
-del.style.border="none";
-del.style.cursor="pointer";
 
-del.onclick = ()=>{
-div.remove();
-images = images.filter(f => f !== file);
+del.style.cssText="position:absolute;top:2px;right:2px;background:red;color:white;border:none;cursor:pointer;";
+
+del.onclick=()=>{
+box.remove();
+images = images.filter(f=>f!==file);
 };
 
-div.appendChild(img);
-div.appendChild(del);
+box.appendChild(img);
+box.appendChild(del);
 
-preview.appendChild(div);
+preview.appendChild(box);
 
 };
 
 reader.readAsDataURL(file);
 
 }
+}
 
+// CLEAR ALL
+function clearAll(){
+images=[];
+preview.innerHTML="";
 }
 
 // ================= CONVERT =================
+convertBtn.onclick = async ()=>{
 
-if(convertBtn){
-convertBtn.addEventListener("click", async ()=>{
-
-if(images.length === 0){
+if(images.length===0){
 alert("Select images first");
 return;
 }
+
+loading.style.display="block";
 
 const { jsPDF } = window.jspdf;
 const pdf = new jsPDF();
@@ -157,12 +150,12 @@ const imgData = await toBase64(images[i]);
 const img = new Image();
 img.src = imgData;
 
-await new Promise(res => img.onload = res);
+await new Promise(res=>img.onload=res);
 
 const width = pdf.internal.pageSize.getWidth();
 const height = (img.height * width) / img.width;
 
-if(i > 0) pdf.addPage();
+if(i>0) pdf.addPage();
 
 pdf.addImage(imgData,"JPEG",0,0,width,height);
 
@@ -170,15 +163,15 @@ pdf.addImage(imgData,"JPEG",0,0,width,height);
 
 pdf.save("Hridoy-PDF.pdf");
 
-});
-}
+loading.style.display="none";
+};
 
 // BASE64
 function toBase64(file){
 return new Promise((resolve,reject)=>{
 const reader = new FileReader();
 reader.readAsDataURL(file);
-reader.onload = ()=> resolve(reader.result);
-reader.onerror = err => reject(err);
+reader.onload=()=>resolve(reader.result);
+reader.onerror=err=>reject(err);
 });
 }
