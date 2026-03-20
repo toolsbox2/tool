@@ -61,9 +61,6 @@ imageInput.addEventListener("change", function(){
 
 const files = imageInput.files;
 
-// ❌ IMPORTANT FIX: previous images remove korbo na
-// ✅ new files add hobe previous er sathe
-
 for(let i=0;i<files.length;i++){
 
 const file = files[i];
@@ -81,8 +78,10 @@ reader.readAsDataURL(file);
 
 }
 
+// ✅ VERY IMPORTANT FIX
+imageInput.value = "";
+
 });
-}
 
 
 // ================= CONVERT =================
