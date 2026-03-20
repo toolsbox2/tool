@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- jsPDF (IMPORTANT) -->
+<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
@@ -22,20 +22,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <!-- ===== HEADER ===== -->
 <header class="header">
 
-<div class="headerLeft">
 <button class="menuBtn" onclick="openLeft()">
 <i class="fa-solid fa-bars"></i>
 </button>
 
-<h2 class="logo">
-💖 Hridoy PDF
-</h2>
-</div>
-
-<div class="headerSearch">
-<i class="fa-solid fa-magnifying-glass"></i>
-<input type="text" placeholder="Search tools...">
-</div>
+<h2 class="logo">💖 Hridoy PDF</h2>
 
 <button class="menuBtn" onclick="openRight()">
 <i class="fa-solid fa-gear"></i>
@@ -43,31 +34,22 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 </header>
 
-<!-- ===== LEFT MENU ===== -->
+<!-- ===== SIDEBAR ===== -->
 <div id="leftMenu" class="sidebar left">
 <button class="close" onclick="closeLeft()">✖</button>
 
-<div class="menuLogo">
-💖
-<h2>Hridoy PDF</h2>
-</div>
-
-<p class="menuText">
-Convert images to PDF easily and fast.
-</p>
-
-<h3>🛠 Tools</h3>
+<h2 style="margin-bottom:10px;">💖 Hridoy PDF</h2>
+<p class="menuText">Simple & fast tools</p>
 
 <a href="index.html">🏠 Home</a>
 <a href="jpg-to-pdf.html">📄 JPG to PDF</a>
 
 </div>
 
-<!-- ===== RIGHT MENU ===== -->
 <div id="rightMenu" class="sidebar right">
 <button class="close" onclick="closeRight()">✖</button>
 
-<h3>📄 Info</h3>
+<h3>Settings</h3>
 <a href="#">About</a>
 <a href="#">Contact</a>
 
@@ -75,28 +57,30 @@ Convert images to PDF easily and fast.
 
 <div id="overlay" onclick="closeLeft();closeRight();"></div>
 
-<!-- ===== TITLE ===== -->
+<!-- ===== HERO ===== -->
 <section class="hero">
-<h1>📄 JPG to PDF Converter</h1>
-<p>Select multiple images and convert them into one PDF file.</p>
+<h1>JPG to PDF</h1>
+<p>Convert your images into a clean PDF file instantly.</p>
 </section>
 
-<!-- ===== ADS TOP ===== -->
-<div class="ad-box">📢 Ad Space</div>
+<!-- ===== MAIN CARD ===== -->
+<div class="tool-container">
 
-<!-- ===== MAIN TOOL ===== -->
-<div class="box">
+<label for="imageInput" class="upload-box">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+<p>Click to upload images</p>
+<span>JPG, PNG supported</span>
+</label>
 
 <input type="file" id="imageInput" multiple accept="image/*">
 
 <div id="preview"></div>
 
-<button id="convertBtn">Convert to PDF</button>
+<button id="convertBtn" class="convert-btn">
+Convert to PDF
+</button>
 
 </div>
-
-<!-- ===== ADS BOTTOM ===== -->
-<div class="ad-box">📢 Ad Space</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
