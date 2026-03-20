@@ -61,6 +61,7 @@ let images = [];
 
 if(imageInput){
 
+imageInput.setAttribute("multiple", "multiple");
 imageInput.addEventListener("change", function(){
 
 preview.innerHTML="";
