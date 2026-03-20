@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Hridoy PDF Tools - Free Online PDF Converter</title>
+
+<meta name="description" content="Free online PDF tools. Convert JPG to PDF, PNG to JPG and more.">
+<meta name="keywords" content="PDF tools, JPG to PDF, image converter">
+<meta name="author" content="Hridoy">
+
+<!-- OPEN GRAPH -->
+<meta property="og:title" content="Hridoy PDF Tools">
+<meta property="og:description" content="Free online PDF tools">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="favicon.png">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+<div class="headerLeft">
+<button class="menuBtn" onclick="openLeft()">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+<h2 class="logo">💖 Hridoy PDF</h2>
+</div>
+
+<div class="headerSearch">
+<input type="text" id="toolSearch" placeholder="Search tools...">
+</div>
+
+<button class="menuBtn" onclick="openRight()">
+<i class="fa-solid fa-gear"></i>
+</button>
+</header>
+
+<!-- LEFT SIDEBAR -->
+<div id="leftMenu" class="sidebar left">
+<button class="close" onclick="closeLeft()">✖</button>
+
+<div class="menuLogo">💖<h2>Hridoy PDF</h2></div>
+
+<p class="menuText">
+✨ Welcome! Convert images, create PDF and use tools easily.
+</p>
+
+<h3>🛠 Tools</h3>
+
+<a href="jpg-to-pdf.html">📄 JPG to PDF</a>
+<a href="#">🖼 JPG to PNG</a>
+<a href="#">🔄 PNG to JPG</a>
+
+</div>
+
+<!-- RIGHT SIDEBAR -->
+<div id="rightMenu" class="sidebar right">
+<button class="close" onclick="closeRight()">✖</button>
+
+<h3>📄 Info</h3>
+<a href="#">ℹ️ About</a>
+<a href="#">📞 Contact</a>
+<a href="#">🔒 Privacy</a>
+<a href="#">📜 Terms</a>
+<a href="#">⚠️ Disclaimer</a>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="closeLeft();closeRight();"></div>
+
+<!-- HERO -->
+<section class="hero">
+<h1>🚀 All PDF Tools in One Place</h1>
+<p>✨ Convert, compress and manage files easily online.</p>
+</section>
+
+<div class="ad-box">📢 Ad Space</div>
+
+<!-- TOOLS -->
+<section class="grid">
+
+<a href="jpg-to-pdf.html" class="tool" data-name="jpg pdf">
+<div class="icon red"><i class="fa-solid fa-file-image"></i></div>
+<h3>JPG to PDF</h3>
+</a>
+
+<a href="#" class="tool" data-name="jpg png">
+<div class="icon orange"><i class="fa-solid fa-image"></i></div>
+<h3>JPG to PNG</h3>
+</a>
+
+<a href="#" class="tool" data-name="png jpg">
+<div class="icon green"><i class="fa-solid fa-image"></i></div>
+<h3>PNG to JPG</h3>
+</a>
+
+</section>
+
+<div class="ad-box">📢 Ad Space</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<h3>💖 Hridoy PDF Tools</h3>
+
+<div class="footerLinks">
+<a href="#">About</a>
+<a href="#">Contact</a>
+<a href="#">Privacy</a>
+</div>
+
+<p class="copy">© 2026 Hridoy</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
