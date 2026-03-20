@@ -423,3 +423,19 @@ border-radius:50%;
 cursor:pointer;
 font-size:12px;
 }
+
+.options{
+margin:15px 0;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.options select,
+.options input{
+padding:8px;
+border-radius:8px;
+border:none;
+background:#222;
+color:white;
+}
