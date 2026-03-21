@@ -5,14 +5,11 @@ padding:0;
 box-sizing:border-box;
 }
 
-/* ===== BODY ===== */
-body{
+html,body{
 background:#000;
 color:#fff;
 font-family:sans-serif;
-display:flex;
-flex-direction:column;
-min-height:100vh;
+min-height:100%;
 }
 
 /* ===== HEADER ===== */
@@ -29,7 +26,6 @@ z-index:999;
 }
 
 .logo{
-color:#fff;
 font-size:18px;
 }
 
@@ -59,7 +55,6 @@ outline:none;
 background:none;
 color:white;
 width:100%;
-font-size:14px;
 }
 
 /* ===== HERO ===== */
@@ -76,7 +71,7 @@ margin-bottom:10px;
 .hero p{
 font-size:15px;
 line-height:1.6;
-max-width:600px;
+max-width:650px;
 margin:auto;
 opacity:0.85;
 }
@@ -89,7 +84,6 @@ gap:15px;
 padding:15px;
 }
 
-/* ===== TOOL CARD ===== */
 .tool{
 background:#111;
 padding:20px;
@@ -114,7 +108,6 @@ border-radius:10px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:white;
 margin:0 auto 10px;
 font-size:20px;
 }
@@ -123,17 +116,18 @@ font-size:20px;
 .orange{background:#ff9800;}
 .green{background:#4caf50;}
 
-/* ===== SIDEBAR ===== */
+/* ===== SIDEBAR (SMOOTH FIX) ===== */
 .sidebar{
 position:fixed;
 top:0;
 width:260px;
 height:100%;
-background:rgba(0,0,0,0.9);
-backdrop-filter:blur(12px);
-padding:80px 20px;
-transition:0.35s ease;
+background:rgba(0,0,0,0.95);
+backdrop-filter:blur(10px);
+padding:70px 20px;
+transition:transform 0.3s ease;
 z-index:1000;
+overflow-y:auto;
 }
 
 .left{
@@ -171,7 +165,7 @@ font-size:20px;
 cursor:pointer;
 }
 
-/* ===== OVERLAY ===== */
+/* ===== OVERLAY (FIXED) ===== */
 #overlay{
 position:fixed;
 top:0;
@@ -182,6 +176,7 @@ background:rgba(0,0,0,0.6);
 opacity:0;
 pointer-events:none;
 transition:0.3s;
+z-index:900;
 }
 
 #overlay.show{
@@ -205,7 +200,7 @@ font-size:18px;
 font-size:14px;
 opacity:0.8;
 margin-bottom:20px;
-line-height:1.5;
+line-height:1.6;
 }
 
 /* ===== FOOTER ===== */
@@ -220,7 +215,8 @@ margin-top:auto;
 .footerLinks{
 display:flex;
 justify-content:center;
-gap:15px;
+flex-wrap:wrap;
+gap:12px;
 margin-bottom:15px;
 }
 
@@ -228,6 +224,11 @@ margin-bottom:15px;
 color:white;
 text-decoration:none;
 font-size:14px;
+opacity:0.9;
+}
+
+.footerLinks a:hover{
+opacity:1;
 }
 
 .copy{
@@ -235,19 +236,20 @@ font-size:12px;
 opacity:0.6;
 }
 
-/* ===== ADS ===== */
+/* ===== ADS (ADSENSE READY) ===== */
 .ad-box{
 margin:20px;
-padding:25px;
+padding:20px;
 text-align:center;
 border:1px dashed #444;
 border-radius:10px;
 color:#aaa;
+background:#0a0a0a;
 }
 
 /* ===== TOOL PAGE ===== */
 .tool-container{
-max-width:500px;
+max-width:520px;
 margin:30px auto;
 padding:20px;
 background:#111;
@@ -257,11 +259,11 @@ text-align:center;
 
 /* upload */
 .upload-box{
-display:block;
 border:2px dashed #444;
 padding:30px;
 border-radius:12px;
 cursor:pointer;
+transition:0.3s;
 }
 
 .upload-box:hover{
@@ -269,11 +271,7 @@ border-color:#ff5252;
 background:#1a1a1a;
 }
 
-#imageInput{
-display:none;
-}
-
-/* ===== FINAL PREVIEW (FIXED SMALL GRID) ===== */
+/* ===== PREVIEW (PERFECT GRID) ===== */
 #preview{
 display:grid;
 grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
@@ -281,23 +279,20 @@ gap:10px;
 margin-top:15px;
 }
 
-/* image box */
 .imgBox{
 position:relative;
-width:100%;
-aspect-ratio:1/1; /* square */
+aspect-ratio:1/1;
 overflow:hidden;
+border-radius:8px;
 }
 
-/* image */
 .imgBox img{
 width:100%;
 height:100%;
 object-fit:cover;
-border-radius:8px;
 }
 
-/* delete button */
+/* delete */
 .deleteBtn{
 position:absolute;
 top:4px;
@@ -308,23 +303,8 @@ border:none;
 border-radius:50%;
 width:20px;
 height:20px;
-cursor:pointer;
 font-size:11px;
-}
-
-/* mobile */
-@media(max-width:600px){
-#preview{
-grid-template-columns:repeat(3,1fr);
-gap:8px;
-}
-}
-
-/* desktop */
-@media(min-width:900px){
-#preview{
-grid-template-columns:repeat(auto-fill, minmax(110px,1fr));
-}
+cursor:pointer;
 }
 
 /* ===== BUTTON ===== */
@@ -349,7 +329,19 @@ background:#ff3030;
 .grid{
 grid-template-columns:1fr;
 }
+
 .hero h1{
 font-size:22px;
+}
+
+#preview{
+grid-template-columns:repeat(3,1fr);
+}
+}
+
+/* ===== DESKTOP ===== */
+@media(min-width:900px){
+#preview{
+grid-template-columns:repeat(auto-fill, minmax(110px,1fr));
 }
 }
