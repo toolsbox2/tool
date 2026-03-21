@@ -273,8 +273,7 @@ background:#1a1a1a;
 display:none;
 }
 
-/* ===== PREVIEW (FINAL FIXED) ===== */
-/* ===== FINAL PREVIEW (LIKE ILOVE PDF) ===== */
+/* ===== FINAL PREVIEW (FIXED SMALL GRID) ===== */
 #preview{
 display:grid;
 grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
@@ -282,16 +281,35 @@ gap:10px;
 margin-top:15px;
 }
 
+/* image box */
 .imgBox{
 position:relative;
 width:100%;
+aspect-ratio:1/1; /* square */
+overflow:hidden;
 }
 
+/* image */
 .imgBox img{
 width:100%;
-aspect-ratio:1/1;
+height:100%;
 object-fit:cover;
 border-radius:8px;
+}
+
+/* delete button */
+.deleteBtn{
+position:absolute;
+top:4px;
+right:4px;
+background:red;
+color:white;
+border:none;
+border-radius:50%;
+width:20px;
+height:20px;
+cursor:pointer;
+font-size:11px;
 }
 
 /* mobile */
@@ -307,20 +325,6 @@ gap:8px;
 #preview{
 grid-template-columns:repeat(auto-fill, minmax(110px,1fr));
 }
-}
-
-.deleteBtn{
-position:absolute;
-top:4px;
-right:4px;
-background:red;
-color:white;
-border:none;
-border-radius:50%;
-width:20px;
-height:20px;
-cursor:pointer;
-font-size:11px;
 }
 
 /* ===== BUTTON ===== */
