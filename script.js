@@ -1,8 +1,3 @@
-// ===== SAFE ELEMENT LOAD =====
-const leftMenu = document.getElementById("leftMenu");
-const rightMenu = document.getElementById("rightMenu");
-const overlay = document.getElementById("overlay");
-
 // ===== SIDEBAR =====
 function openLeft(){
 if(leftMenu){
@@ -56,11 +51,12 @@ closeRight();
 
 
 // ===== JPG TO PDF =====
+
+// SAFE LOAD
 const input = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 const dropArea = document.getElementById("dropArea");
 const convertBtn = document.getElementById("convertBtn");
-const loading = document.getElementById("loading");
 
 let images = [];
 
@@ -69,36 +65,17 @@ if(dropArea){
 dropArea.onclick = ()=> input.click();
 }
 
-// SELECT FILE
+// SELECT
 if(input){
 input.addEventListener("change",(e)=>{
+preview.innerHTML=""; // 🔥 FIX
+images=[];
 addImages(e.target.files);
-input.value="";
-});
-}
-
-// DRAG DROP
-if(dropArea){
-
-dropArea.addEventListener("dragover",(e)=>{
-e.preventDefault();
-dropArea.style.borderColor="#ff5252";
-});
-
-dropArea.addEventListener("dragleave",()=>{
-dropArea.style.borderColor="#444";
-});
-
-dropArea.addEventListener("drop",(e)=>{
-e.preventDefault();
-addImages(e.dataTransfer.files);
 });
 }
 
 // ADD IMAGES
 function addImages(files){
-
-preview.innerHTML = "";
 
 for(let file of files){
 
@@ -135,13 +112,13 @@ reader.readAsDataURL(file);
 }
 }
 
-// CLEAR ALL
+// CLEAR
 function clearAll(){
 images=[];
 preview.innerHTML="";
 }
 
-// ===== CONVERT =====
+// CONVERT
 if(convertBtn){
 convertBtn.onclick = async ()=>{
 
@@ -149,8 +126,6 @@ if(images.length===0){
 alert("Select images first");
 return;
 }
-
-if(loading) loading.style.display="block";
 
 const { jsPDF } = window.jspdf;
 const pdf = new jsPDF();
@@ -174,7 +149,6 @@ pdf.addImage(imgData,"JPEG",0,0,width,height);
 
 pdf.save("Hridoy-PDF.pdf");
 
-if(loading) loading.style.display="none";
 };
 }
 
