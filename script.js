@@ -120,44 +120,4 @@ preview.innerHTML="";
 
 // CONVERT
 if(convertBtn){
-convertBtn.onclick = async ()=>{
-
-if(images.length===0){
-alert("Select images first");
-return;
-}
-
-const { jsPDF } = window.jspdf;
-const pdf = new jsPDF();
-
-for(let i=0;i<images.length;i++){
-
-const imgData = await toBase64(images[i]);
-
-const img = new Image();
-img.src = imgData;
-
-await new Promise(res=>img.onload=res);
-
-const width = pdf.internal.pageSize.getWidth();
-const height = (img.height * width) / img.width;
-
-if(i>0) pdf.addPage();
-
-pdf.addImage(imgData,"JPEG",0,0,width,height);
-}
-
-pdf.save("Hridoy-PDF.pdf");
-
-};
-}
-
-// BASE64
-function toBase64(file){
-return new Promise((resolve,reject)=>{
-const reader = new FileReader();
-reader.readAsDataURL(file);
-reader.onload=()=>resolve(reader.result);
-reader.onerror=err=>reject(err);
-});
-}
+v
