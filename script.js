@@ -1,3 +1,8 @@
+// ===== SAFE ELEMENT LOAD =====
+const leftMenu = document.getElementById("leftMenu");
+const rightMenu = document.getElementById("rightMenu");
+const overlay = document.getElementById("overlay");
+
 // ===== SIDEBAR =====
 function openLeft(){
 if(leftMenu){
@@ -27,6 +32,14 @@ overlay.classList.remove("show");
 }
 }
 
+// overlay click close
+if(overlay){
+overlay.onclick=()=>{
+closeLeft();
+closeRight();
+};
+}
+
 // ===== SEARCH =====
 const searchInput=document.getElementById("toolSearch");
 
@@ -43,16 +56,13 @@ tool.style.display=name.includes(value)?"block":"none";
 });
 }
 
-// ================= BACK BUTTON =================
+// ===== BACK BUTTON =====
 window.onpopstate=function(){
 closeLeft();
 closeRight();
 };
 
-
 // ===== JPG TO PDF =====
-
-// SAFE LOAD
 const input = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
 const dropArea = document.getElementById("dropArea");
@@ -65,16 +75,15 @@ if(dropArea){
 dropArea.onclick = ()=> input.click();
 }
 
-// SELECT
+// SELECT MULTIPLE FILE
 if(input){
 input.addEventListener("change",(e)=>{
-preview.innerHTML=""; // 🔥 FIX
-images=[];
 addImages(e.target.files);
+input.value="";
 });
 }
 
-// ADD IMAGES
+// ===== ADD IMAGES =====
 function addImages(files){
 
 for(let file of files){
@@ -93,6 +102,7 @@ box.className="imgBox";
 const img = document.createElement("img");
 img.src=e.target.result;
 
+// DELETE BUTTON
 const del = document.createElement("button");
 del.className="deleteBtn";
 del.innerHTML="✖";
@@ -112,12 +122,76 @@ reader.readAsDataURL(file);
 }
 }
 
-// CLEAR
+// ===== CLEAR =====
 function clearAll(){
 images=[];
-preview.innerHTML="";
+if(preview) preview.innerHTML="";
 }
 
-// CONVERT
+// ===== CONVERT (HIGH QUALITY + A4 + MULTI FILE) =====
 if(convertBtn){
-v
+
+convertBtn.onclick = async ()=>{
+
+if(images.length===0){
+alert("Select images first");
+return;
+}
+
+// progress create
+let progress = document.createElement("div");
+progress.style.marginTop="10px";
+progress.innerHTML="⏳ Processing...";
+preview.appendChild(progress);
+
+const { jsPDF } = window.jspdf;
+
+// A4 size
+const pdf = new jsPDF("p","mm","a4");
+
+for(let i=0;i<images.length;i++){
+
+const imgData = await toBase64(images[i]);
+
+const img = new Image();
+img.src = imgData;
+
+await new Promise(res=>img.onload=res);
+
+// A4 width
+const pageWidth = 210;
+const pageHeight = 297;
+
+// image ratio fit
+let ratio = Math.min(pageWidth / img.width, pageHeight / img.height);
+
+let width = img.width * ratio;
+let height = img.height * ratio;
+
+let x = (pageWidth - width)/2;
+let y = (pageHeight - height)/2;
+
+if(i>0) pdf.addPage();
+
+// HIGH QUALITY
+pdf.addImage(imgData,"JPEG",x,y,width,height,undefined,"FAST");
+
+// progress update
+progress.innerHTML = `⏳ Processing ${i+1}/${images.length}`;
+}
+
+pdf.save("Hridoy-PDF.pdf");
+
+progress.innerHTML="✅ Done!";
+};
+}
+
+// ===== BASE64 =====
+function toBase64(file){
+return new Promise((resolve,reject)=>{
+const reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload=()=>resolve(reader.result);
+reader.onerror=err=>reject(err);
+});
+}
