@@ -98,6 +98,8 @@ addImages(e.dataTransfer.files);
 // ADD IMAGES
 function addImages(files){
 
+preview.innerHTML = "";
+
 for(let file of files){
 
 if(!file.type.startsWith("image/")) continue;
