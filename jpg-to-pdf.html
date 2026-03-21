@@ -1,43 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JPG to PDF</title>
+
+<title>JPG to PDF Converter - Free Online Tool</title>
+
+<meta name="description" content="Convert JPG to PDF online free. High quality A4 PDF, fast and easy tool.">
+<meta name="keywords" content="jpg to pdf, image to pdf, free pdf converter">
 
 <link rel="stylesheet" href="style.css">
 
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
+
+<button class="menuBtn" onclick="history.back()">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+
 <h2 class="logo">💖 Hridoy PDF</h2>
+
+<button class="menuBtn" onclick="openRight()">
+<i class="fa-solid fa-gear"></i>
+</button>
+
 </header>
 
+<!-- RIGHT SIDEBAR -->
+<div id="rightMenu" class="sidebar right">
+<button class="close" onclick="closeRight()">✖</button>
+
+<h3>📄 Info</h3>
+<a href="#">ℹ️ About</a>
+<a href="#">📞 Contact</a>
+<a href="#">🔒 Privacy Policy</a>
+<a href="#">📜 Terms</a>
+<a href="#">⚠️ Disclaimer</a>
+</div>
+
+<div id="overlay"></div>
+
+<!-- HERO -->
 <section class="hero">
-<h1>JPG to PDF</h1>
-<p>Upload images and convert</p>
+<h1>📄 JPG to PDF Converter</h1>
+<p>Convert multiple images into high-quality A4 PDF instantly. Fast, secure, and free.</p>
 </section>
 
+<!-- ADS TOP -->
+<div class="ad-box">📢 Google AdSense (Top)</div>
+
+<!-- TOOL -->
 <div class="tool-container">
 
 <div id="dropArea" class="upload-box">
+<i class="fa-solid fa-cloud-arrow-up"></i>
 <p>Click or Drag Images</p>
+<span>Supports multiple files</span>
 </div>
 
-<input type="file" id="imageInput" multiple accept="image/*">
+<input type="file" id="imageInput" multiple accept="image/*" hidden>
 
-<button onclick="clearAll()" class="convert-btn">Clear All</button>
+<div class="options">
+
+<label>📄 Page Size</label>
+<select id="pageSize">
+<option value="a4">A4</option>
+<option value="auto">Auto</option>
+</select>
+
+<label>📦 Quality</label>
+<select id="quality">
+<option value="1">High</option>
+<option value="0.7">Medium</option>
+<option value="0.5">Low</option>
+</select>
+
+</div>
+
+<button onclick="clearAll()" class="convert-btn">🗑 Clear All</button>
 
 <div id="preview"></div>
 
+<!-- PROGRESS -->
+<div id="progressText" style="margin-top:10px;"></div>
+
 <button id="convertBtn" class="convert-btn">
-Convert to PDF
+🚀 Convert to PDF
 </button>
 
 </div>
+
+<!-- ADS MIDDLE -->
+<div class="ad-box">📢 Google AdSense (Middle)</div>
+
+<!-- SEO CONTENT -->
+<section class="seoText">
+<h2>Free JPG to PDF Converter</h2>
+
+<p>
+This free JPG to PDF converter allows you to easily convert multiple images into a single high-quality PDF file.
+You can upload multiple JPG images, preview them instantly, and download your PDF in A4 format with perfect quality.
+Our tool is fast, secure, and works on both mobile and desktop devices.
+</p>
+
+</section>
+
+<!-- ADS BOTTOM -->
+<div class="ad-box">📢 Google AdSense (Bottom)</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<h3>💖 Hridoy PDF Tools</h3>
+
+<div class="footerLinks">
+<a href="#">About</a>
+<a href="#">Contact</a>
+<a href="#">Privacy</a>
+<a href="#">Terms</a>
+<a href="#">Disclaimer</a>
+</div>
+
+<p class="copy">© 2026 Hridoy</p>
+</footer>
 
 <script src="script.js"></script>
 
