@@ -87,22 +87,22 @@ line-height:1.4;
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:15px;
-padding:15px;
+gap:12px;
+padding:12px;
 }
 
 .tool{
-display:flex;
-align-items:center;
-gap:15px;
 background:#111;
-padding:18px;
-border-radius:16px;
+padding:16px;
+border-radius:14px;
+display:flex;
+align-items:center;   /* 🔥 main fix */
+gap:12px;             /* space between icon & text */
+transition:0.3s;
+cursor:pointer;
 text-decoration:none;
 color:white;
-transition:0.3s;
 }
-
 .tool-text{
 display:flex;
 flex-direction:column;
@@ -113,16 +113,27 @@ background:#1a1a1a;
 transform:translateY(-4px);
 }
 
+.tool-text h3{
+font-size:16px;
+margin-bottom:3px;
+}
+
+.tool-text p{
+font-size:13px;
+opacity:0.7;
+}
+
 /* ===== ICON ===== */
 .icon{
-width:45px;
-height:45px;
-border-radius:12px;
+width:50px;
+height:50px;
+border-radius:14px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:18px;
-margin-bottom:5px;
+font-size:20px;
+flex-shrink:0;
+box-shadow:0 4px 12px rgba(0,0,0,0.4); /* 🔥 depth */
 }
 
 .icon i{
@@ -162,19 +173,23 @@ display:flex;
 align-items:center;
 gap:12px;
 padding:12px;
-color:white;
-text-decoration:none;
-border-radius:8px;
+border-radius:10px;
+transition:0.2s;
 }
 
 .sidebar a i{
-width:22px;
-font-size:16px;
-text-align:center;
+width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:8px;
+background:#1a1a1a; /* 🔥 icon box */
 }
 
 .sidebar a:hover{
-background:rgba(255,255,255,0.1);
+background:#1a1a1a;
+transform:translateX(4px);
 }
 
 /* ===== CLOSE BTN ===== */
@@ -354,6 +369,7 @@ background:#ff3030;
 grid-template-columns:repeat(2,1fr);
 }
 }
+
 
 .hero h1{
 font-size:22px;
