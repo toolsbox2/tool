@@ -85,9 +85,6 @@ gap:15px;
 padding:15px;
 }
 
-.icon i{
-font-size:22px;
-}
 
 .tool{
 background:#111;
@@ -115,6 +112,10 @@ align-items:center;
 justify-content:center;
 margin:0 auto 10px;
 font-size:20px;
+}
+
+.icon i{
+font-size:22px;
 }
 
 .red{background:#ff5252;}
@@ -152,6 +153,11 @@ color:white;
 text-decoration:none;
 border-radius:8px;
 transition:0.2s;
+}
+
+.sidebar a i{
+margin-right:8px;
+font-size:14px;
 }
 
 .sidebar a:hover{
