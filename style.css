@@ -76,26 +76,35 @@ margin:auto;
 opacity:0.85;
 }
 
+.tool p{
+font-size:13px;
+opacity:0.7;
+line-height:1.4;
+}
+
 /* ===== GRID ===== */
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
+grid-template-columns:repeat(2,1fr);
 gap:15px;
 padding:15px;
 }
 
-
 .tool{
 background:#111;
-padding:20px;
-border-radius:14px;
-text-align:center;
+padding:18px;
+border-radius:16px;
+text-align:left;
+display:flex;
+flex-direction:column;
+gap:6px;
 transition:0.3s;
 cursor:pointer;
 text-decoration:none;
 color:white;
 }
+
 
 .tool:hover{
 background:#1a1a1a;
@@ -104,14 +113,14 @@ transform:translateY(-4px);
 
 /* ===== ICON ===== */
 .icon{
-width:50px;
-height:50px;
-border-radius:10px;
+width:45px;
+height:45px;
+border-radius:12px;
 display:flex;
 align-items:center;
 justify-content:center;
-margin:0 auto 10px;
-font-size:20px;
+font-size:18px;
+margin-bottom:5px;
 }
 
 .icon i{
@@ -147,17 +156,18 @@ transform:translateX(100%);
 }
 
 .sidebar a{
-display:block;
+display:flex;
+align-items:center;
+gap:10px;
 padding:12px;
 color:white;
 text-decoration:none;
 border-radius:8px;
-transition:0.2s;
 }
 
 .sidebar a i{
-margin-right:8px;
-font-size:14px;
+width:20px;
+text-align:center;
 }
 
 .sidebar a:hover{
