@@ -274,9 +274,10 @@ display:none;
 }
 
 /* ===== PREVIEW (FINAL FIXED) ===== */
+/* ===== FINAL PREVIEW (LIKE ILOVE PDF) ===== */
 #preview{
 display:grid;
-grid-template-columns:repeat(auto-fill, minmax(100px,1fr));
+grid-template-columns:repeat(auto-fill, minmax(90px,1fr));
 gap:10px;
 margin-top:15px;
 }
@@ -288,12 +289,12 @@ width:100%;
 
 .imgBox img{
 width:100%;
-aspect-ratio:1/1; /* perfect square */
+aspect-ratio:1/1;
 object-fit:cover;
 border-radius:8px;
 }
 
-/* mobile small fix */
+/* mobile */
 @media(max-width:600px){
 #preview{
 grid-template-columns:repeat(3,1fr);
@@ -301,24 +302,25 @@ gap:8px;
 }
 }
 
-/* desktop improve */
+/* desktop */
 @media(min-width:900px){
 #preview{
-grid-template-columns:repeat(auto-fill, minmax(120px,1fr));
+grid-template-columns:repeat(auto-fill, minmax(110px,1fr));
 }
 }
 
 .deleteBtn{
 position:absolute;
-top:5px;
-right:5px;
+top:4px;
+right:4px;
 background:red;
 color:white;
 border:none;
 border-radius:50%;
-width:22px;
-height:22px;
+width:20px;
+height:20px;
 cursor:pointer;
+font-size:11px;
 }
 
 /* ===== BUTTON ===== */
