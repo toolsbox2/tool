@@ -1,90 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>JPG to PDF - Hridoy PDF Tools</title>
+<title>JPG to PDF</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 
 <body>
 
 <header class="header">
-<button class="menuBtn" onclick="openLeft()">
-<i class="fa-solid fa-bars"></i>
-</button>
-
 <h2 class="logo">💖 Hridoy PDF</h2>
-
-<button class="menuBtn" onclick="openRight()">
-<i class="fa-solid fa-gear"></i>
-</button>
 </header>
-
-<!-- SIDEBAR -->
-<div id="leftMenu" class="sidebar left">
-<button class="close" onclick="closeLeft()">✖</button>
-<h2>💖 Hridoy PDF</h2>
-<a href="index.html">🏠 Home</a>
-<a href="jpg-to-pdf.html">📄 JPG to PDF</a>
-</div>
-
-<div id="rightMenu" class="sidebar right">
-<button class="close" onclick="closeRight()">✖</button>
-<h3>Info</h3>
-<a href="#">About</a>
-<a href="#">Contact</a>
-</div>
-
-<div id="overlay" onclick="closeLeft();closeRight();"></div>
 
 <section class="hero">
 <h1>JPG to PDF</h1>
-<p>Upload multiple images and convert instantly</p>
+<p>Upload images and convert</p>
 </section>
 
-<!-- TOOL -->
 <div class="tool-container">
 
 <div id="dropArea" class="upload-box">
-<i class="fa-solid fa-cloud-arrow-up"></i>
 <p>Click or Drag Images</p>
 </div>
 
-<input type="file" id="imageInput" multiple accept="image/*" hidden>
+<input type="file" id="imageInput" multiple accept="image/*">
 
-<div style="margin-top:10px;">
 <button onclick="clearAll()" class="convert-btn">Clear All</button>
-</div>
 
 <div id="preview"></div>
 
-<button id="clearAllBtn" class="convert-btn" style="background:#333;">
-Clear All
-</button>
 <button id="convertBtn" class="convert-btn">
 Convert to PDF
 </button>
 
-<div id="loading" style="display:none;margin-top:10px;">
-⏳ Converting...
 </div>
-
-</div>
-
-<footer class="footer">
-<h3>💖 Hridoy PDF Tools</h3>
-<p class="copy">© 2026</p>
-</footer>
 
 <script src="script.js"></script>
 
